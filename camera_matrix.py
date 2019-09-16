@@ -7,10 +7,10 @@ if __name__ == '__main__' :
   im_src = cv2.imread('images/maracana2.jpg')
 
   # Corresponding points
-  pts_src = np.array([[268, 61], [266, 237], [458, 62], [509, 239]])
-  pts_dst = np.array([[0, 0], [0, 40.32], [11, 0], [11, 40.32]])
+  pts_src = np.array([[269, 23], [264, 344], [439, 23], [585, 346]])
+  pts_dst = np.array([[0, 0], [0, 68], [11, 0], [11, 68]])
 
   # Calculate transformation matrix
   matrix = calculate_transformation_matrix(pts_src, pts_dst)
 
-  draw_line_on_click(im_src, matrix)
+  draw_line_on_hover(im_src, matrix)
