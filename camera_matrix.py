@@ -13,9 +13,4 @@ if __name__ == '__main__' :
   # Calculate transformation matrix
   matrix = calculate_transformation_matrix(pts_src, pts_dst)
 
-  pixel_point = get_user_input_point_from_img(im_src)
-  world_point = pixel_point.to_world(matrix)
-
-  print(pixel_point)
-  print(world_point)
-  print(world_point.to_pixel(matrix))
+  draw_line_on_click(im_src, matrix)
