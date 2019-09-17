@@ -5,23 +5,27 @@ class Point:
     self.coords = coords
 
   def to_world(self, matrix):
+    # Calculate inverse matrix
+    shape = matrix.shape
+    if shape == (3, 4):
+      matrix = np.delete(matrix, 2, 1)
+      matrix = np.linalg.pinv(matrix)
+    else:
+      matrix = np.linalg.inv(matrix)
+
     # Convert to homogeneous coords
     array = np.append(self.coords, [1])
 
     # Multiply by the matrix
     out = matrix.dot(array)
 
-    coords = []
-    for index in range(0, len(out)-1):
-      # Convert back to normal coords;
-      coords.append(out[index]/out[-1])
+    coords = out[:-1]/out[-1]
+    if shape == (3, 4):
+      coords = np.append(coords, [0])
 
     return Point(coords)
 
   def to_pixel(self, matrix):
-    # Calculate inverse matrix
-    matrix = np.linalg.inv(matrix)
-
     # Convert to homogeneous coords
     array = np.append(self.coords, [1])
 

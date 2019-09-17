@@ -72,10 +72,8 @@ def homography_2d(x, y, u, v):
 
     m = np.linalg.solve(h, b)
     p = np.array([[m[0], m[1], m[2]], [m[3], m[4], m[5]], [m[6], m[7], 1]])
-    # following the definition this inverse function would not be needed however, the function findHomography seems to
-    # return the inverse of the matrix p found above, so to keep consistency with the already implemented code it was also
-    # inverted here
-    return np.linalg.inv(p)
+
+    return p
 
 
 def homography_3d(x, y, z, u, v):
