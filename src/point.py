@@ -9,9 +9,8 @@ class Point:
     shape = matrix.shape
     if shape == (3, 4):
       matrix = np.delete(matrix, 2, 1)
-      matrix = np.linalg.pinv(matrix)
-    else:
-      matrix = np.linalg.inv(matrix)
+
+    matrix = np.linalg.inv(matrix)
 
     # Convert to homogeneous coords
     array = np.append(self.coords, [1])
