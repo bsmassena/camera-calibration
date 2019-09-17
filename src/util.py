@@ -7,7 +7,14 @@ def mouse_handler_player(event, x, y, flags, data) :
   matrix = data['matrix']
   img = data['img'].copy()
 
-  # TODO: draw player
+  p1 = Point([x, y]).to_world(matrix)
+  p2 = Point([p1.x, p1.y, 1.8])
+
+  p1 = p1.to_pixel(matrix)
+  p2 = p2.to_pixel(matrix)
+
+  cv2.line(img, (p1.x, p1.y), (p2.x, p2.y), (50,50,220), 2)
+  cv2.imshow("Image", img)
 
 def draw_player_on_hover(img, matrix):
   data = {}
