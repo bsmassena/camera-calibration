@@ -70,7 +70,11 @@ def homography_2d(x, y, u, v):
     ])
     b = np.array([u[0], v[0], u[1], v[1], u[2], v[2], u[3], v[3]])
 
-    m = np.linalg.solve(h, b)
+    U, sigma, VT = np.linalg.svd(h)
+    Sigma_pinv = np.zeros(h.shape).T
+    Sigma_pinv[:len(sigma), :len(sigma)] = np.diag(1 / sigma[:])
+
+    m = VT.T.dot(Sigma_pinv).dot(U.T).dot(b)
     p = np.array([[m[0], m[1], m[2]], [m[3], m[4], m[5]], [m[6], m[7], 1]])
 
     return p
@@ -90,8 +94,13 @@ def homography_3d(x, y, z, u, v):
 
     b = np.array(b)
 
-    inv_h = np.linalg.pinv(h)
-    m = np.dot(inv_h, b)
+    U, sigma, VT = np.linalg.svd(h)
+
+    Sigma_pinv = np.zeros(h.shape).T
+    Sigma_pinv[:len(sigma), :len(sigma)] = np.diag(1 / sigma[:])
+
+    m = VT.T.dot(Sigma_pinv).dot(U.T).dot(b)
+
     p = np.array([[m[0], m[1], m[2], m[3]], [m[4], m[5], m[6], m[7]], [m[8], m[9], m[10], 1]])
 
     return p
